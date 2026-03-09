@@ -1,0 +1,64 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Books Trash{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title mb-4">
+                    <i class="bi bi-trash"></i> Deleted Books
+                </h2>
+                
+                {% if deleted_books %}
+                    <p class="text-muted">
+                        <i class="bi bi-info-circle"></i> 
+                        Deleted books are kept here. You can restore them in book list.
+                    </p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Author</th>
+                                    <th>Deleted At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for book in deleted_books %}
+                                    <tr>
+                                        <td>{{ book.title }}</td>
+                                        <td>
+                                            
+                                            {{ book.author }}
+                                            
+                                        </td>
+                                        <td>{{ book.deleted_at|date:"M d, Y H:i" }}</td>
+                                        <td>
+
+                                            <a href="{% url 'book_restore' book.pk  %}" class="btn btn-secondary">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Restore
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-info-circle"></i> Trash is empty.
+                    </div>
+                {% endif %}
+                
+                <a href="{% url 'book_list' %}" class="btn btn-secondary mt-3">
+                    <i class="bi bi-arrow-left"></i> Back to Books
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Restore Book {% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-success">
+            <div class="card-body">
+                <h2 class="card-title text-success mb-4">
+                    <i class="bi bi-arrow-counterclockwise"></i> Restore Book
+                </h2>
+                
+                <p class="lead">Are you sure you want to restore this Book?</p>
+                
+                <div class="alert alert-info">
+                    <strong>Book:</strong> {{ book.title }}<br>
+                    <strong>Author:</strong> {{ book.get_author_display }}<br>
+                    <strong>Genre:</strong> {{ book.get_genre_display }}<br>
+                    <strong>Available:</strong> {{ book.is_available }}
+                </div>
+                
+                <form method="POST">
+                    {{ "{% csrf_token %}" }}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-arrow-counterclockwise"></i> Yes, Restore
+                        </button>
+                        <a href="{% url 'task_trash' %}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
